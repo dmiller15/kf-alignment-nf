@@ -25,7 +25,6 @@ process GATK4_HAPLOTYPECALLER {
         PrintReads \\
         -I $input_bam \\
         -L $sequence_interval \\
-        --interval_padding 500 \\
         -O local.sharded.bam \\
         $args \\
     && java -XX:GCTimeLimit=50 -XX:GCHeapFreeLimit=10 -Xmx${(task.memory.mega*0.8).intValue()}M -jar /GenomeAnalysisTK.jar \\
@@ -35,11 +34,6 @@ process GATK4_HAPLOTYPECALLER {
         -R $fasta \\
         -o ${prefix}.vcf.gz \\
         -contamination $contamination \\
-        -ERC GVCF \\
-        --max_alternate_alleles 3 \\
-        -variant_index_parameter 128000 \\
-        -variant_index_type LINEAR \\
-        --read_filter OverclippedRead \\
         $args2
     """
 

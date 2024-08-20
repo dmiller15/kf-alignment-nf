@@ -22,12 +22,12 @@ process PICARD_COLLECTHSMETRICS {
     """
     java -Xmx${(task.memory.mega*0.8).intValue()}M -jar /picard.jar \\
         CollectHsMetrics \\
-        $args \\
         INPUT=${bam} \\
         REFERENCE_SEQUENCE=${fasta} \\
         BAIT_INTERVALS=${bait_intervals} \\
         TARGET_INTERVALS=${target_intervals} \\
-        OUTPUT=${prefix}.hs_metrics
+        OUTPUT=${prefix}.hs_metrics \\
+	$args
     """
 
     stub:

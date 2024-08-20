@@ -21,6 +21,7 @@ process GATK4_APPLYBQSR {
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
     def interval_command = sequence_interval ? "--intervals $sequence_interval" : ""
+    def args = task.ext.args ?: ''
     """
     /gatk --java-options "-Xmx${(task.memory.mega*0.8).intValue()}M" \\
         ApplyBQSR \\
@@ -29,9 +30,7 @@ process GATK4_APPLYBQSR {
         -O ${prefix}.aligned.duplicates_marked.recalibrated.bam \\
         -bqsr $bqsr_report \\
         $interval_command \\
-        --use-original-qualities \\
-        --add-output-sam-program-record \\
-        --static-quantized-quals 10 --static-quantized-quals 20 --static-quantized-quals 30
+        $args
     """
 
     stub:

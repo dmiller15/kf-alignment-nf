@@ -27,8 +27,7 @@ process PICARD_COLLECTVARIANTCALLINGMETRICS {
         TARGET_INTERVALS=${target_intervals} \\
         DBSNP=${dbsnp_vcf} \\
         SEQUENCE_DICTIONARY=${dict} \\
-	OUTPUT=${prefix} \\
-        GVCF_INPUT=true \\
+        OUTPUT=${prefix} \\
         $args
     """
 

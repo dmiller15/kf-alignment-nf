@@ -23,6 +23,7 @@ params.cutadapt_quality_cutoff = ""
 params.wgs_or_wxs = ""
 
 params.outdir = ""
+params.output_basename = ""
 
 include { UNTAR_REFERENCE } from './modules/local/untar/reference/main'
 include { SAMTOOLS_SPLIT } from './modules/local/samtools/split/main'

@@ -27,9 +27,6 @@ process PICARD_COLLECTGCBIASMETRICS {
         SUMMARY_OUTPUT=${prefix}.gc_bias_summary_metrics.txt \\
         CHART_OUTPUT=${prefix}.gc_bias_metrics.pdf \\
         REFERENCE_SEQUENCE=${fasta} \\
-        METRIC_ACCUMULATION_LEVEL="null" \\
-        METRIC_ACCUMULATION_LEVEL="SAMPLE" \\
-        METRIC_ACCUMULATION_LEVEL="LIBRARY" \\
         $args
     """
 

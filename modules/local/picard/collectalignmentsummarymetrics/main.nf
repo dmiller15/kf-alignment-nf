@@ -21,11 +21,8 @@ process PICARD_COLLECTALIGNMENTSUMMARYMETRICS {
     java -Xmx${(task.memory.mega*0.8).intValue()}M -jar /picard.jar \\
         CollectAlignmentSummaryMetrics \\
         INPUT=${bam} \\
-        OUTPUT=${prefix}.alignment_summary_metrics \\
         REFERENCE_SEQUENCE=${fasta} \\
-        METRIC_ACCUMULATION_LEVEL="null" \\
-        METRIC_ACCUMULATION_LEVEL="SAMPLE" \\
-        METRIC_ACCUMULATION_LEVEL="LIBRARY" \\
+        OUTPUT=${prefix}.alignment_summary_metrics \\
         $args
     """
 

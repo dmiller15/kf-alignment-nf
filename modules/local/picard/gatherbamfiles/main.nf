@@ -22,8 +22,6 @@ process PICARD_GATHERBAMFILES {
         GatherBamFiles \\
         $inputs_command \\
         OUTPUT=${prefix}.bam \\
-        CREATE_INDEX=true \\
-        CREATE_MD5_FILE=true \\
         $args
     """
 

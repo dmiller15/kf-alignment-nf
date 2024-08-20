@@ -16,7 +16,6 @@ process BIOBAMBAM_BAMTOFASTQ {
     def reference_command = fasta ? "reference=$fasta" : ''
     """
     bamtofastq \\
-        tryoq=1 \\
         filename=$reads \\
         inputFormat=${reads.getExtension()} \\
         $reference_command \\

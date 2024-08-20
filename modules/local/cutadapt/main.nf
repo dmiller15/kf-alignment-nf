@@ -6,7 +6,7 @@ process CUTADAPT {
 
     output:
     tuple val(meta), path('*.trim.fastq.gz'), emit: reads
-    tuple val(meta), path('*.log'), emit: log
+    tuple val(meta), path('*.cutadapt_stats.txt'), emit: log
 
     when:
     task.ext.when == null || task.ext.when
@@ -23,12 +23,12 @@ process CUTADAPT {
         $interleaved \\
         -o ${prefix}.trim.fastq.gz \\
         $reads \\
-        > ${prefix}.cutadapt.log
+        > ${prefix}.cutadapt_stats.txt
     """
 
     stub:
     """
-    touch test.cutadapt.log
+    touch test.cutadapt_stats.txt
     touch test.trim.fastq.gz
     """
 }

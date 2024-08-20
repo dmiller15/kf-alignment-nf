@@ -21,6 +21,7 @@ process GATK4_BASERECALIBRATOR {
     def prefix = task.ext.prefix ?: "${meta.id}"
     def interval_command = sequence_interval ? "--intervals $sequence_interval" : ""
     def sites_command = known_sites.collect{"--known-sites $it"}.join(' ') // Use collect to convert a file Channel to a List (value channel) then to a string using join (Groovy)
+    def args = task.ext.args ?: ''
     """
     /gatk --java-options "-Xmx${(task.memory.mega*0.8).intValue()}M" \\
         BaseRecalibrator \\
@@ -29,7 +30,7 @@ process GATK4_BASERECALIBRATOR {
         $interval_command \\
         $sites_command \\
         -O ${prefix}.recal_data.csv \\
-        --use-original-qualities
+        $args
     """
 
     stub:

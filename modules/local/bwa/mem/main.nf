@@ -16,10 +16,10 @@ process BWA_MEM {
     def prefix = task.ext.prefix ?: "${meta.id}"
     def interleaved_command = interleaved ? '-p' : ''
     def rgline_command = rgline ? "-R '${rgline}'" : ''
-    def args = task.ext.args ?: '-K 100000000 -v 3 -Y'
-    def args2 = task.ext.args ?: ''
-    def args3 = task.ext.args ?: '-S -f bam -l 0'
-    def args4 = task.ext.args ?: '--natural-sort --tmpdir ./ -l 5'
+    def args = task.ext.args ?: ''
+    def args2 = task.ext.args2 ?: ''
+    def args3 = task.ext.args3 ?: ''
+    def args4 = task.ext.args4 ?: ''
     """
     INDEX=`find -L ./ -name "*.amb" | sed 's/\\.64\\.amb\$//'`
 

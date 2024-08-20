@@ -14,17 +14,18 @@ process SAMTOOLS_IDXSTATS_XY {
     task.ext.when == null || task.ext.when
 
     script:
+    def prefix = task.ext.prefix ?: "${meta.id}"
     def args = task.ext.args ?: ''
     """
     samtools \\
         idxstats \\
-        $bam > ${bam.getBaseName()}.idxstats.txt \\
+        $bam > ${prefix}.idxstats.txt \\
     && awk '{ \\
         if(\$1 == "chrX") {x_rat = \$3/\$2; X_reads = \$3;}; \\
         if(\$1 == "chrY") {y_rat = \$3/\$2; Y_reads = \$3;}; \\
         } END { \\
         printf "Y_reads_fraction %f\\nX:Y_ratio %f\\nX_norm_reads %f\\nY_norm_reads %f\\nY_norm_reads_fraction %f", Y_reads/(X_reads+Y_reads), x_rat/y_rat, x_rat, y_rat, y_rat/(x_rat+y_rat) \\
-        }' ${bam.getBaseName()}.idxstats.txt > ${bam.getBaseName()}.ratio.txt
+        }' ${prefix}.idxstats.txt > ${prefix}.ratio.txt
     """
 
     stub:

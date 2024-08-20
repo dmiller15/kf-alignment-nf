@@ -25,9 +25,6 @@ process PICARD_COLLECTINSERTSIZEMETRICS {
         OUTPUT=${prefix}.insert_size_metrics \\
         HISTOGRAM_FILE=${prefix}.insert_size_Histogram.pdf \\
         REFERENCE_SEQUENCE=${fasta} \\
-        METRIC_ACCUMULATION_LEVEL="null" \\
-        METRIC_ACCUMULATION_LEVEL="SAMPLE" \\
-        METRIC_ACCUMULATION_LEVEL="LIBRARY" \\
         $args
     """
 

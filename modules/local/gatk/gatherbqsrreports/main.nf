@@ -15,11 +15,13 @@ process GATK4_GATHERBQSRREPORTS {
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
     def reports_command = bqsr_reports.collect{"-I $it"}.join(' ')
+    def args = task.ext.args ?: ''
     """
     /gatk --java-options "-Xmx${(task.memory.mega*0.8).intValue()}M" \\
         GatherBQSRReports \\
         $reports_command \\
-        -O ${prefix}.GatherBqsrReports.recal_data.csv
+        -O ${prefix}.GatherBqsrReports.recal_data.csv \\
+        $args
     """
 
     stub:

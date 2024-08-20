@@ -17,7 +17,7 @@ process SAMTOOLS_VIEW_CRAM {
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
     def reference_command = fasta ? "--reference $fasta" : ''
-    def args1 = task.ext.args1 ?: ''
+    def args = task.ext.args ?: ''
     def args2 = task.ext.args2 ?: ''
     """
     samtools \\
@@ -26,7 +26,7 @@ process SAMTOOLS_VIEW_CRAM {
         -C \\
         $reference_command \\
         -o ${prefix}.cram \\
-        $args1 \\
+        $args \\
         $reads \\
     && samtools \\
         index \\

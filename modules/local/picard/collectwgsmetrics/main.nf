@@ -25,10 +25,6 @@ process PICARD_COLLECTWGSMETRICS {
         OUTPUT=${prefix}.wgs_metrics \\
         REFERENCE_SEQUENCE=${fasta} \\
         INTERVALS=${intervallist} \\
-        VALIDATION_STRINGENCY=SILENT \\
-        INCLUDE_BQ_HISTOGRAM=true \\
-        USE_FAST_ALGORITHM=true \\
-        READ_LENGTH=250 \\
         $args
     """
 

@@ -19,7 +19,6 @@ process SAMTOOLS_SPLIT {
     """
     samtools \\
         split \\
-        -f '%*_%#.bam' \\
         -@ $task.cpus \\
         $reference_command \\
         $args \\

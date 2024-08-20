@@ -23,7 +23,7 @@ process VERIFYBAMID {
     /bin/VerifyBamID \\
         --Verbose \\
         --NumPC $task.cpus \\
-        --Output $bam.baseName \\
+        --Output $prefix \\
         --BamFile $bam \\
         --Reference $fasta \\
         --UDPath $contamination_ud \\

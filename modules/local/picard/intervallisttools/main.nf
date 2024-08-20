@@ -17,11 +17,6 @@ process PICARD_INTERVALLISTTOOLS {
     java -Xmx${(task.memory.mega*0.8).intValue()}M -jar /picard.jar \\
         IntervalListTools \\
         INPUT=${interval_list} \\
-        BREAK_BANDS_AT_MULTIPLES_OF=1000000 \\
-        SUBDIVISION_MODE=BALANCING_WITHOUT_INTERVAL_SUBDIVISION_WITH_OVERFLOW \\
-        SCATTER_COUNT=50 \\
-        UNIQUE=true \\
-        SORT=true \\
         OUTPUT=. \\
         $args
     """
