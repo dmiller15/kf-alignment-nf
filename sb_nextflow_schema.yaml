@@ -1,0 +1,143 @@
+app_content:
+    code_package: 66bf6ad4f59d166e4ee661ed
+    entrypoint: main.nf
+class: nextflow
+cwlVersion: None
+inputs:
+-   id: in
+    inputBinding:
+        prefix: --in
+    type:
+    - File
+-   id: sample
+    inputBinding:
+        prefix: --sample
+    type:
+    - string
+    - 'null'
+-   id: cram_fasta
+    inputBinding:
+        prefix: --cram_fasta
+    type:
+    - File
+    - 'null'
+-   id: reference_tar
+    inputBinding:
+        prefix: --reference_tar
+    type:
+    - File 
+-   id: knownsites
+    inputBinding:
+        prefix: --knownsites
+        itemSeparator: ","
+        shellQuote: false
+    type:
+    - File[]
+-   id: knownsites_indexes
+    inputBinding:
+        prefix: --knownsites_indexes
+        itemSeparator: ","
+        shellQuote: false
+    type:
+    - File[]
+-   id: calling_intervallist
+    inputBinding:
+        prefix: --calling_intervallist
+    type:
+    - File
+-   id: coverage_intervallist
+    inputBinding:
+        prefix: --coverage_intervallist
+    type:
+    - File
+-   id: evaluation_intervallist
+    inputBinding:
+        prefix: --evaluation_intervallist
+    type:
+    - File
+-   id: precalc_contam
+    inputBinding:
+        prefix: --precalc_contam
+    type:
+    - float
+    - 'null'
+-   id: contamination_bed
+    inputBinding:
+        prefix: --contamination_bed
+    type:
+    - File
+-   id: contamination_mu
+    inputBinding:
+        prefix: --contamination_mu
+    type:
+    - File
+-   id: contamination_ud
+    inputBinding:
+        prefix: --contamination_ud
+    type:
+    - File
+-   id: dbsnp_vcf
+    inputBinding:
+        prefix: --dbsnp_vcf
+    type:
+    - File
+-   id: dbsnp_vcf_index
+    inputBinding:
+        prefix: --dbsnp_vcf_index
+    type:
+    - File
+-   id: cutadapt_r1_adapter
+    inputBinding:
+        prefix: --cutadapt_r1_adapter
+    type:
+    - string
+    - 'null'
+-   id: cutadapt_r2_adapter
+    inputBinding:
+        prefix: --cutadapt_r2_adapter
+    type:
+    - string
+    - 'null'
+-   id: cutadapt_min_len
+    inputBinding:
+        prefix: --cutadapt_min_len
+    type:
+    - int
+    - 'null'
+-   id: cutadapt_quality_base
+    inputBinding:
+        prefix: --cutadapt_quality_base
+    type:
+    - int
+    - 'null'
+-   id: cutadapt_quality_cutoff
+    inputBinding:
+        prefix: --cutadapt_quality_cutoff
+    type:
+    - int
+    - 'null'
+-   id: wgs_or_wxs
+    inputBinding:
+        prefix: --wgs_or_wxs
+    type:
+    - 'null'
+    - type: enum
+      name: wgs_or_wxs
+      symbols: ["WGS", "WXS"]
+-   doc: List of files not added as explicit workflow inputs but required for workflow
+        execution.
+    id: auxiliary_files
+    label: Auxiliary files
+    type: File[]?
+outputs:
+-   doc: This is a template output. Please change glob to directories specified in
+        publishDir in the workflow.
+    id: nf_workdir
+    outputBinding:
+        glob: work
+    type: Directory
+requirements:
+-   class: InlineJavascriptRequirement
+-   class: InitialWorkDirRequirement
+    listing:
+    - $(inputs.auxiliary_files)
