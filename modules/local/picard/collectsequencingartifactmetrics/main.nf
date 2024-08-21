@@ -1,6 +1,6 @@
 process PICARD_COLLECTSEQUENCINGARTIFACTMETRICS {
     tag "${meta.id}"
-    label 'process_low'
+    label 'process_single'
     container 'pgc-images.sbgenomics.com/d3b-bixu/picard:2.18.9R'
 
     input:

@@ -1,4 +1,5 @@
 process PYTHON_CREATESEQUENCEGROUPS {
+    label 'process_single'
     container "pgc-images.sbgenomics.com/d3b-bixu/python:2.7.13"
 
     input:

@@ -1,5 +1,5 @@
 process SAMTOOLS_VIEW_CRAM {
-    tag ""
+    tag "$meta.id"
     label 'process_low'
     container "pgc-images.sbgenomics.com/d3b-bixu/samtools:1.9"
 

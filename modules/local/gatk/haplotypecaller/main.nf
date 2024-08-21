@@ -1,6 +1,6 @@
 process GATK4_HAPLOTYPECALLER {
     tag "${meta.id}"
-    label 'process_low'
+    label 'process_medium'
     container 'pgc-images.sbgenomics.com/d3b-bixu/gatk:4.beta.1-3.5'
 
     input:

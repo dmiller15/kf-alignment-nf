@@ -1,6 +1,6 @@
 process SAMTOOLS_IDXSTATS_XY {
-    tag ""
-    label 'process_low'
+    tag "$meta.id"
+    label 'process_single'
     container "pgc-images.sbgenomics.com/d3b-bixu/samtools:1.9"
 
     input:

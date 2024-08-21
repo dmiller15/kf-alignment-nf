@@ -1,4 +1,7 @@
 process CUTADAPT {
+    tag "$meta.id"
+    label 'process_medium'
+
     container "quay.io/biocontainers/cutadapt:4.6--py310h4b81fae_1"
 
     input:

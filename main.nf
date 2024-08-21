@@ -21,9 +21,11 @@ params.cutadapt_min_len = ""
 params.cutadapt_quality_base = ""
 params.cutadapt_quality_cutoff = ""
 params.wgs_or_wxs = ""
-
 params.outdir = ""
 params.output_basename = ""
+params.max_memory = ""
+params.max_time = ""
+params.max_cpus = ""
 
 include { UNTAR_REFERENCE } from './modules/local/untar/reference/main'
 include { SAMTOOLS_SPLIT } from './modules/local/samtools/split/main'
@@ -57,8 +59,8 @@ workflow {
     in_bam = Channel.fromPath(params.in).flatten().map { file -> [["inbam": file.getBaseName()], file] }
     cram_fasta = params.cram_fasta ? Channel.fromPath(params.cram_fasta).first() : Channel.value([])
     reference_tar = Channel.fromPath(params.reference_tar).first()
-    knownsites = params.knownsites ? Channel.fromPath(params.knownsites.split(',')).collect()
-    knownsites_indexes = params.knownsites_indexes ? Channel.fromPath(params.knownsites_indexes.split(',')).collect() : Channel.value([])
+    knownsites = params.knownsites ? Channel.fromPath(params.knownsites.split(',') as List).collect() : Channel.value([])
+    knownsites_indexes = params.knownsites_indexes ? Channel.fromPath(params.knownsites_indexes.split(',') as List).collect() : Channel.value([])
     coverage_intervallist = params.coverage_intervallist ? Channel.fromPath(params.coverage_intervallist).first() : Channel.value([])
     evaluation_intervallist = params.evaluation_intervallist ? Channel.fromPath(params.evaluation_intervallist).first() : Channel.value([])
     calling_intervallist = params.calling_intervallist ? Channel.fromPath(params.calling_intervallist).first() : Channel.value([])
@@ -67,6 +69,9 @@ workflow {
     contamination_ud = params.contamination_ud ? Channel.fromPath(params.contamination_ud).first() : Channel.value([])
     dbsnp_vcf = params.dbsnp_vcf ? Channel.fromPath(params.dbsnp_vcf).first() : Channel.value([])
     dbsnp_vcf_index = params.dbsnp_vcf_index ? Channel.fromPath(params.dbsnp_vcf_index).first() : Channel.value([])
+
+    knownsites.view()
+    knownsites_indexes.view()
 
     SAMTOOLS_SPLIT(in_bam, cram_fasta)
 

@@ -1,5 +1,5 @@
 process BWA_MEM {
-    label 'process_low'
+    label 'process_high'
     container "pgc-images.sbgenomics.com/d3b-bixu/bwa-kf-bundle:0.1.17"
 
     input:
@@ -40,7 +40,7 @@ process BWA_MEM {
         /dev/stdin \\
     | /opt/sambamba_0.6.3/sambamba_v0.6.3 sort \\
         -t $task.cpus \\
-        -m ${task.memory.toGiga() / 4}GiB \\
+        -m ${Math.floor(task.memory.toGiga() / 4) as int}GiB \\
         -o ${prefix}.unsorted.bam \\
         $args4 \\
         /dev/stdin
