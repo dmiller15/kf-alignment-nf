@@ -1,143 +1,229 @@
 app_content:
-    code_package: 66bf6ad4f59d166e4ee661ed
+    code_package: 66c630d859ab2853e8b19057
     entrypoint: main.nf
 class: nextflow
 cwlVersion: None
 inputs:
--   id: in
+  in:
+    type: File
     inputBinding:
-        prefix: --in
-    type:
-    - File
--   id: sample
+      prefix: --in
+  sample:
+    type: string?
     inputBinding:
-        prefix: --sample
-    type:
-    - string
-    - 'null'
--   id: cram_fasta
+      prefix: --sample
+  cram_fasta:
+    type: File?
     inputBinding:
-        prefix: --cram_fasta
-    type:
-    - File
-    - 'null'
--   id: reference_tar
+      prefix: --cram_fasta
+  reference_tar:
+    type: File
     inputBinding:
-        prefix: --reference_tar
-    type:
-    - File 
--   id: knownsites
+      prefix: --reference_tar
+  knownsites:
+    type: File[]
     inputBinding:
-        prefix: --knownsites
-        itemSeparator: ","
-        shellQuote: false
-    type:
-    - File[]
--   id: knownsites_indexes
+      prefix: --knownsites
+      itemSeparator: ","
+      shellQuote: false
+  knownsites_indexes:
     inputBinding:
-        prefix: --knownsites_indexes
-        itemSeparator: ","
-        shellQuote: false
-    type:
-    - File[]
--   id: calling_intervallist
+      prefix: --knownsites_indexes
+      itemSeparator: ","
+      shellQuote: false
+    type: File[]
+  calling_intervallist:
+    type: File
     inputBinding:
-        prefix: --calling_intervallist
-    type:
-    - File
--   id: coverage_intervallist
+      prefix: --calling_intervallist
+  coverage_intervallist:
+    type: File
     inputBinding:
-        prefix: --coverage_intervallist
-    type:
-    - File
--   id: evaluation_intervallist
+      prefix: --coverage_intervallist
+  evaluation_intervallist:
     inputBinding:
-        prefix: --evaluation_intervallist
-    type:
-    - File
--   id: precalc_contam
+      prefix: --evaluation_intervallist
+    type: File
+  precalc_contam:
     inputBinding:
-        prefix: --precalc_contam
-    type:
-    - float
-    - 'null'
--   id: contamination_bed
+      prefix: --precalc_contam
+    type: float?
+  contamination_bed:
     inputBinding:
-        prefix: --contamination_bed
-    type:
-    - File
--   id: contamination_mu
+      prefix: --contamination_bed
+    type: File
+  contamination_mu:
     inputBinding:
-        prefix: --contamination_mu
-    type:
-    - File
--   id: contamination_ud
+      prefix: --contamination_mu
+    type: File
+  contamination_ud:
     inputBinding:
-        prefix: --contamination_ud
-    type:
-    - File
--   id: dbsnp_vcf
+      prefix: --contamination_ud
+    type: File
+  dbsnp_vcf:
     inputBinding:
-        prefix: --dbsnp_vcf
-    type:
-    - File
--   id: dbsnp_vcf_index
+      prefix: --dbsnp_vcf
+    type: File
+  dbsnp_vcf_index:
     inputBinding:
-        prefix: --dbsnp_vcf_index
-    type:
-    - File
--   id: cutadapt_r1_adapter
+      prefix: --dbsnp_vcf_index
+    type: File
+  cutadapt_r1_adapter:
     inputBinding:
-        prefix: --cutadapt_r1_adapter
-    type:
-    - string
-    - 'null'
--   id: cutadapt_r2_adapter
+      prefix: --cutadapt_r1_adapter
+    type: string?
+  cutadapt_r2_adapter:
     inputBinding:
-        prefix: --cutadapt_r2_adapter
-    type:
-    - string
-    - 'null'
--   id: cutadapt_min_len
+      prefix: --cutadapt_r2_adapter
+    type: string?
+  cutadapt_min_len:
     inputBinding:
-        prefix: --cutadapt_min_len
-    type:
-    - int
-    - 'null'
--   id: cutadapt_quality_base
+      prefix: --cutadapt_min_len
+    type: int?
+  cutadapt_quality_base:
     inputBinding:
-        prefix: --cutadapt_quality_base
-    type:
-    - int
-    - 'null'
--   id: cutadapt_quality_cutoff
+      prefix: --cutadapt_quality_base
+    type: int?
+  cutadapt_quality_cutoff:
     inputBinding:
-        prefix: --cutadapt_quality_cutoff
-    type:
-    - int
-    - 'null'
--   id: wgs_or_wxs
+      prefix: --cutadapt_quality_cutoff
+    type: string?
+  wgs_or_wxs:
     inputBinding:
-        prefix: --wgs_or_wxs
+      prefix: --wgs_or_wxs
     type:
     - 'null'
     - type: enum
       name: wgs_or_wxs
       symbols: ["WGS", "WXS"]
--   doc: List of files not added as explicit workflow inputs but required for workflow
-        execution.
-    id: auxiliary_files
-    label: Auxiliary files
+  outdir:
+    inputBinding:
+      prefix: --outdir
+    type: string?
+    default: "results"
+  output_basename:
+    inputBinding:
+      prefix: --output_basename
+    type: string?
+    default: "test"
+  max_memory:
+    inputBinding:
+      prefix: --max_memory
+    type: string?
+    default: "72.GB"
+  max_time:
+    inputBinding:
+      prefix: --max_time
+    type: string?
+    default: "1.h"
+  max_cpus:
+    inputBinding:
+      prefix: --max_cpus
+    type: int?
+    default: 32
+  auxiliary_files:
     type: File[]?
+    doc: List of files not added as explicit workflow inputs but required for workflow execution.
 outputs:
--   doc: This is a template output. Please change glob to directories specified in
-        publishDir in the workflow.
-    id: nf_workdir
+  cram:
+    type: File
+    secondaryFiles: [{pattern: ".crai", required: true}]
     outputBinding:
-        glob: work
-    type: Directory
+      glob: $(inputs.outdir)/*.cram
+  gvcf:
+    type: File
+    secondaryFiles: [{pattern: ".tbi", required: true}]
+    outputBinding:
+      glob: $(inputs.outdir)/*.g.vcf.gz
+  cutadapt_stats:
+    type: File[]?
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*cutadapt_stats.txt
+  verifybamid_output:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.selfSM
+  bqsr_report:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/*.GatherBqsrReports.recal_data.csv
+  gvcf_calling_metrics:
+    type: File[]
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.variant_calling_*_metrics
+  hs_metrics:
+    type: File?
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.hs_metrics
+  wgs_metrics:
+    type: File?
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.wgs_metrics
+  alignment_metrics:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.alignment_summary_metrics
+  gc_bias_detail:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.gc_bias_metrics.txt
+  gc_bias_summary:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.gc_bias_summary_metrics.txt
+  gc_bias_chart:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.gc_bias_metrics.pdf
+  insert_metrics:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.insert_size_metrics
+  insert_plot:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.insert_size_Histogram.pdf
+  artifact_bait_bias_detail_metrics:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.artifact_metrics.bait_bias_detail_metrics
+  artifact_bait_bias_summary_metrics:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.artifact_metrics.bait_bias_summary_metrics
+  artifact_error_summary_metrics:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.artifact_metrics.error_summary_metrics
+  artifact_pre_adapter_detail_metrics:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.artifact_metrics.pre_adapter_detail_metrics
+  artifact_pre_adapter_summary_metrics:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.artifact_metrics.pre_adapter_summary_metrics
+  qual_metrics:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.qual_score_dist.txt
+  qual_chart:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.qual_score_dist.pdf
+  idxstats:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.idxstats.txt
+  xy_ratio:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir)/metrics/*.ratio.txt
 requirements:
--   class: InlineJavascriptRequirement
--   class: InitialWorkDirRequirement
-    listing:
-    - $(inputs.auxiliary_files)
+- class: InlineJavascriptRequirement
+- class: ResourceRequirement
+  ramMin: $(parseInt(inputs.max_memory) * 1000)
+  coresMin: $(inputs.max_cpus)
+- class: InitialWorkDirRequirement
+  listing:
+  - $(inputs.auxiliary_files)

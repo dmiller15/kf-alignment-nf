@@ -124,6 +124,21 @@
         },
         "wgs_or_wxs": {
             "type": "string"
+        },
+        "outdir": {
+            "type": "string"
+        },
+        "output_basename": {
+            "type": "string"
+        },
+        "max_memory": {
+            "type": "string"
+        },
+        "max_time": {
+            "type": "string"
+        },
+        "max_cpus": {
+            "type": "string"
         }
     }
 }
