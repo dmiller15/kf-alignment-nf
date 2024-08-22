@@ -70,9 +70,6 @@ workflow {
     dbsnp_vcf = params.dbsnp_vcf ? Channel.fromPath(params.dbsnp_vcf).first() : Channel.value([])
     dbsnp_vcf_index = params.dbsnp_vcf_index ? Channel.fromPath(params.dbsnp_vcf_index).first() : Channel.value([])
 
-    knownsites.view()
-    knownsites_indexes.view()
-
     SAMTOOLS_SPLIT(in_bam, cram_fasta)
 
     rg_bams = SAMTOOLS_SPLIT.out.rg_bams.transpose().map { meta, file -> [meta + ["rgbam": file.getBaseName(), "single_end": false], file] }

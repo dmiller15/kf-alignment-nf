@@ -1,6 +1,5 @@
 process VERIFYBAMID {
-    container "pgc-images.sbgenomics.com/d3b-bixu/verifybamid:1.0.2"
-    shell '/bin/sh'
+    container "griffan/verifybamid2:v1.0.6"
 
     input:
     tuple val(meta), path(bam), path(bai)
@@ -20,8 +19,9 @@ process VERIFYBAMID {
     def prefix = task.ext.prefix ?: "${meta.id}"
     def args = task.ext.args ?: ''
     """
-    /bin/VerifyBamID \\
+    /VerifyBamID/bin/VerifyBamID \\
         --Verbose \\
+        --DisableSanityCheck \\
         --NumPC $task.cpus \\
         --Output $prefix \\
         --BamFile $bam \\
