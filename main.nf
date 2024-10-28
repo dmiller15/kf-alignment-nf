@@ -1,32 +1,5 @@
 #!/usr/bin/env nextflow
 
-params.in = ""
-params.sample = ""
-params.cram_fasta = ""
-params.reference_tar = ""
-params.knownsites = ""
-params.knownsites_indexes = ""
-params.calling_intervallist = ""
-params.coverage_intervallist = ""
-params.evaluation_intervallist = ""
-params.precalc_contam = ""
-params.contamination_bed = ""
-params.contamination_mu = ""
-params.contamination_ud = ""
-params.dbsnp_vcf = ""
-params.dbsnp_vcf_index = ""
-params.cutadapt_r1_adapter = ""
-params.cutadapt_r2_adapter = ""
-params.cutadapt_min_len = ""
-params.cutadapt_quality_base = ""
-params.cutadapt_quality_cutoff = ""
-params.wgs_or_wxs = ""
-params.outdir = ""
-params.output_basename = ""
-params.max_memory = ""
-params.max_time = ""
-params.max_cpus = ""
-
 include { UNTAR_REFERENCE } from './modules/local/untar/reference/main'
 include { SAMTOOLS_SPLIT } from './modules/local/samtools/split/main'
 include { SAMTOOLS_VIEW_RG } from './modules/local/samtools/view_rg/main'
@@ -143,5 +116,4 @@ workflow {
     GATK4_HAPLOTYPECALLER(haplotyper_channel, UNTAR_REFERENCE.out.fasta, UNTAR_REFERENCE.out.fai, UNTAR_REFERENCE.out.dict, contamination)
     PICARD_MERGEVCFS_RENAMESAMPLE(GATK4_HAPLOTYPECALLER.out.germline_vcf.map { meta, vcf, tbi -> [["id": "temp"], vcf, tbi] }.groupTuple(), params.sample)
     PICARD_COLLECTVARIANTCALLINGMETRICS(PICARD_MERGEVCFS_RENAMESAMPLE.out.merged_vcf, dbsnp_vcf, dbsnp_vcf_index, evaluation_intervallist, UNTAR_REFERENCE.out.dict) 
-    PICARD_COLLECTVARIANTCALLINGMETRICS.out.vcf_metrics.view()
 }
