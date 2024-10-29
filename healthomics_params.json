@@ -79,6 +79,10 @@
     "description": "Maximum runtime for Nextflow tasks",
     "optional": true
   },
+  "outdir": {
+    "description": "Location to store outputs. For healthomics it must be /mnt/workflow/pubdir",
+    "optional": false
+  },
   "output_basename": {
     "description": "String to use as the base for output filenames",
     "optional": true
