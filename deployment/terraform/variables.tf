@@ -34,7 +34,7 @@ variable "ami" {
 }
 
 variable "nextflow_ec2_instance_type" {
-    default = "m7g.medium"
+    default = "c5.large"
 }
 
 variable "bastion_public_key" {

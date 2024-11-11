@@ -129,7 +129,6 @@ resource "aws_iam_role_policy" "ec2_nextflow_policy" {
   name = "${var.project}-${var.environment}-ec2-policy"
   role = aws_iam_role.ecs_instance_role.name
   policy = data.aws_iam_policy_document.ec2_nextflow_permissions.json
-
 }
 
 resource "aws_iam_instance_profile" "ecs_instance_role" {
@@ -160,6 +159,12 @@ resource "aws_iam_role_policy_attachment" "ecs_instance_policy" {
 resource "aws_iam_role_policy_attachment" "execution_role_policy" {
   role       = aws_iam_role.ecs_instance_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+
+resource "aws_iam_role_policy_attachment" "ssm_policy" {
+  role       = aws_iam_role.ecs_instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
 #
