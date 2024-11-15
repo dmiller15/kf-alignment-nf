@@ -32,6 +32,8 @@ resource "aws_security_group" "batch" {
   }
 }
 
+
+
 #
 # Batch resources
 #
@@ -66,7 +68,8 @@ resource "aws_batch_compute_environment" "default" {
     bid_percentage      = var.batch_spot_fleet_bid_percentage
 
     ec2_configuration {
-      image_type = "ECS_AL2"
+      image_id_override = "ami-04692212255e789db"
+      image_type = "ECS_AL2023"
     }
 
     ec2_key_pair = aws_key_pair.bastion.key_name

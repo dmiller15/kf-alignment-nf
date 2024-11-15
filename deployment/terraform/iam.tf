@@ -93,6 +93,7 @@ data "aws_iam_policy_document" "ec2_nextflow_permissions" {
         "batch:DescribeJobs",
         "batch:RegisterJobDefinition",
         "batch:DescribeJobDefinitions",
+        "batch:TagResource",
         "ecs:DescribeTasks",
         "ec2:DescribeInstances",
         "ec2:DescribeInstanceTypes",
@@ -110,7 +111,8 @@ data "aws_iam_policy_document" "ec2_nextflow_permissions" {
         "ecr:GetLifecyclePolicy",
         "ecr:GetLifecyclePolicyPreview",
         "ecr:ListTagsForResource",
-        "ecr:DescribeImageScanFindings"
+        "ecr:DescribeImageScanFindings",
+        "logs:GetLogEvents"
       ]
       resources = [ "*" ]
     }
@@ -119,9 +121,13 @@ data "aws_iam_policy_document" "ec2_nextflow_permissions" {
       actions = [
         "s3:GetObject",
         "s3:PutObject",
-        "s3:DeleteObject"
+        "s3:DeleteObject",
+        "s3:ListBucket"
       ]
-      resources = [ "arn:aws:s3:::d3b-bix-dev-data-bucket/*"]
+      resources = [ 
+        "arn:aws:s3:::d3b-bix-dev-data-bucket/*",
+        "arn:aws:s3:::d3b-bix-dev-data-bucket"
+      ]
     }
 }
 

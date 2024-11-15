@@ -30,6 +30,7 @@ variable "image_tag" {
 }
 
 variable "ami" {
+    description = "AMI ID for both the Nextflow EC2"
     default = ""
 }
 
