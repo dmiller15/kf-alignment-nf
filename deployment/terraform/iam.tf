@@ -122,7 +122,11 @@ data "aws_iam_policy_document" "ec2_nextflow_permissions" {
         "s3:GetObject",
         "s3:PutObject",
         "s3:DeleteObject",
-        "s3:ListBucket"
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:PutObjectTagging",
+        "s3:GetObjectTagging",
+        "s3:DeleteObjectTagging"
       ]
       resources = [ 
         "arn:aws:s3:::d3b-bix-dev-data-bucket/*",
