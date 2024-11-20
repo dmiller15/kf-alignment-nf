@@ -68,7 +68,6 @@ resource "aws_batch_compute_environment" "default" {
     bid_percentage      = var.batch_spot_fleet_bid_percentage
 
     ec2_configuration {
-      image_id_override = "ami-04692212255e789db"
       image_type = "ECS_AL2023"
     }
 
