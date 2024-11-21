@@ -36,6 +36,7 @@ resource "aws_instance" "nextflow_ec2" {
     Application          = var.project
     Description          = "Instance for ${var.project}"
     BootstrapInstance    = "true"
+    Project              = var.project
   }
 }
 

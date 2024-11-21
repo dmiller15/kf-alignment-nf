@@ -67,7 +67,7 @@ variable "batch_root_block_device_type" {
 
 variable "batch_spot_fleet_allocation_strategy" {
   type    = string
-  default = "SPOT_CAPACITY_OPTIMIZED"
+  default = "BEST_FIT"
 }
 
 variable "batch_spot_fleet_bid_percentage" {
@@ -82,7 +82,7 @@ variable "batch_min_vcpus" {
 
 variable "batch_max_vcpus" {
   type    = number
-  default = 16
+  default = 128
 }
 
 variable "batch_vcpus" {
@@ -97,7 +97,7 @@ variable "batch_memory" {
 
 variable "batch_instance_types" {
   type    = list(string)
-  default = ["c5d.xlarge", "c5d.2xlarge", "c5d.4xlarge", "m5d.large", "m5d.xlarge", "m5d.2xlarge", "m5d.4xlarge"]
+  default = ["c5d", "m5d", "r5d"]
 }
 
 variable "vpc_private_subnet_ids" {
