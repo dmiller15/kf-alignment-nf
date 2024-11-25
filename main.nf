@@ -32,8 +32,8 @@ workflow {
     in_bam = Channel.fromPath(params.in).flatten().map { file -> [["inbam": file.getBaseName()], file] }
     cram_fasta = params.cram_fasta ? Channel.fromPath(params.cram_fasta).first() : Channel.value([])
     reference_tar = Channel.fromPath(params.reference_tar).first()
-    knownsites = params.knownsites ? Channel.fromPath(params.knownsites.split(',') as List).collect() : Channel.value([])
-    knownsites_indexes = params.knownsites_indexes ? Channel.fromPath(params.knownsites_indexes.split(',') as List).collect() : Channel.value([])
+    knownsites = params.knownsites ? Channel.fromPath(params.knownsites).collect() : Channel.value([])
+    knownsites_indexes = params.knownsites_indexes ? Channel.fromPath(params.knownsites_indexes).collect() : Channel.value([])
     coverage_intervallist = params.coverage_intervallist ? Channel.fromPath(params.coverage_intervallist).first() : Channel.value([])
     evaluation_intervallist = params.evaluation_intervallist ? Channel.fromPath(params.evaluation_intervallist).first() : Channel.value([])
     calling_intervallist = params.calling_intervallist ? Channel.fromPath(params.calling_intervallist).first() : Channel.value([])
