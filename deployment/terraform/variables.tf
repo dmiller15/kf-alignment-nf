@@ -57,7 +57,7 @@ variable "nextflow_volume_size" {
 
 variable "batch_root_block_device_size" {
   type    = number
-  default = 32
+  default = 200
 }
 
 variable "batch_root_block_device_type" {
