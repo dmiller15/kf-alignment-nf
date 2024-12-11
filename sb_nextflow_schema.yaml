@@ -1,123 +1,133 @@
 app_content:
-  code_package: 66c66a70312ed5692f338715
   entrypoint: main.nf
 class: nextflow
 cwlVersion: None
+hints:
+-   class: sbg:NextflowExecutionMode
+    value: multi-instance
 inputs:
-  auxiliary_files:
-    doc: List of files not added as explicit workflow inputs but required for workflow
-      execution.
-    type: File[]?
-  calling_intervallist:
+-   id: calling_intervallist
     inputBinding:
       prefix: --calling_intervallist
     type: File
-  contamination_bed:
+-   id: contamination_bed
     inputBinding:
       prefix: --contamination_bed
     type: File
-  contamination_mu:
+-   id: contamination_mu
     inputBinding:
       prefix: --contamination_mu
     type: File
-  contamination_ud:
+-   id: contamination_ud
     inputBinding:
       prefix: --contamination_ud
     type: File
-  coverage_intervallist:
+-   id: coverage_intervallist
     inputBinding:
       prefix: --coverage_intervallist
     type: File
-  cram_fasta:
+-   id: cram_fasta
     inputBinding:
       prefix: --cram_fasta
     type: File?
-  cutadapt_min_len:
+-   id: cutadapt_min_len
     inputBinding:
       prefix: --cutadapt_min_len
     type: int?
-  cutadapt_quality_base:
+-   id: cutadapt_quality_base
     inputBinding:
       prefix: --cutadapt_quality_base
     type: int?
-  cutadapt_quality_cutoff:
+-   id: cutadapt_quality_cutoff
     inputBinding:
       prefix: --cutadapt_quality_cutoff
     type: string?
-  cutadapt_r1_adapter:
+-   id: cutadapt_r1_adapter
     inputBinding:
       prefix: --cutadapt_r1_adapter
     type: string?
-  cutadapt_r2_adapter:
+-   id: cutadapt_r2_adapter
     inputBinding:
       prefix: --cutadapt_r2_adapter
     type: string?
-  dbsnp_vcf:
+-   id: dbsnp_vcf
     inputBinding:
       prefix: --dbsnp_vcf
     type: File
-  dbsnp_vcf_index:
+-   id: dbsnp_vcf_index
     inputBinding:
       prefix: --dbsnp_vcf_index
     type: File
-  evaluation_intervallist:
+-   id: evaluation_intervallist
     inputBinding:
       prefix: --evaluation_intervallist
     type: File
-  in:
+-   id: in
     inputBinding:
       prefix: --in
     type: File
-  knownsites:
+-   id: knownsites
     inputBinding:
       itemSeparator: ','
       prefix: --knownsites
       shellQuote: false
     type: File[]
-  knownsites_indexes:
+-   id: knownsites_indexes
     inputBinding:
       itemSeparator: ','
       prefix: --knownsites_indexes
       shellQuote: false
     type: File[]
-  max_cpus:
+-   id: max_cpus
     default: 32
     inputBinding:
       prefix: --max_cpus
     type: int?
-  max_memory:
+-   id: max_memory
     default: 72.GB
     inputBinding:
       prefix: --max_memory
     type: string?
-  max_time:
+-   id: max_time
     default: 1.h
     inputBinding:
       prefix: --max_time
     type: string?
-  outdir:
+-   id: outdir
     default: results
     inputBinding:
       prefix: --outdir
     type: string?
-  output_basename:
+-   id: output_basename
     default: test
     inputBinding:
       prefix: --output_basename
     type: string?
-  precalc_contam:
+-   id: precalc_contam
     inputBinding:
       prefix: --precalc_contam
     type: float?
-  reference_tar:
+-   id: reference_tar
     inputBinding:
       prefix: --reference_tar
     type: File
-  sample:
+-   id: sample
     inputBinding:
       prefix: --sample
     type: string?
-  wgs_or_wxs:
+-   id: test_aws
+    inputBinding:
+      prefix: --test_aws
+    type: boolean?
+-   id: test_batch
+    inputBinding:
+      prefix: --test_batch
+    type: boolean?
+-   id: test_cavatica
+    inputBinding:
+      prefix: --test_cavatica
+    type: boolean?
+-   id: wgs_or_wxs
     inputBinding:
       prefix: --wgs_or_wxs
     type:
@@ -128,109 +138,111 @@ inputs:
       - WXS
       type: enum
 outputs:
-  alignment_metrics:
+-   id: alignment_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.alignment_summary_metrics
     type: File
-  artifact_bait_bias_detail_metrics:
+-   id: artifact_bait_bias_detail_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.artifact_metrics.bait_bias_detail_metrics
     type: File
-  artifact_bait_bias_summary_metrics:
+-   id: artifact_bait_bias_summary_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.artifact_metrics.bait_bias_summary_metrics
     type: File
-  artifact_error_summary_metrics:
+-   id: artifact_error_summary_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.artifact_metrics.error_summary_metrics
     type: File
-  artifact_pre_adapter_detail_metrics:
+-   id: artifact_pre_adapter_detail_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.artifact_metrics.pre_adapter_detail_metrics
     type: File
-  artifact_pre_adapter_summary_metrics:
+-   id: artifact_pre_adapter_summary_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.artifact_metrics.pre_adapter_summary_metrics
     type: File
-  bqsr_report:
+-   id: bqsr_report
     outputBinding:
       glob: $(inputs.outdir)/*.GatherBqsrReports.recal_data.csv
     type: File
-  cram:
+-   id: cram
     outputBinding:
       glob: $(inputs.outdir)/*.cram
     secondaryFiles:
     - pattern: .crai
       required: true
     type: File
-  cutadapt_stats:
+-   id: cutadapt_stats
     outputBinding:
       glob: $(inputs.outdir)/metrics/*cutadapt_stats.txt
     type: File[]?
-  gc_bias_chart:
+-   id: gc_bias_chart
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.gc_bias_metrics.pdf
     type: File
-  gc_bias_detail:
+-   id: gc_bias_detail
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.gc_bias_metrics.txt
     type: File
-  gc_bias_summary:
+-   id: gc_bias_summary
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.gc_bias_summary_metrics.txt
     type: File
-  gvcf:
+-   id: gvcf
     outputBinding:
       glob: $(inputs.outdir)/*.g.vcf.gz
     secondaryFiles:
     - pattern: .tbi
       required: true
     type: File
-  gvcf_calling_metrics:
+-   id: gvcf_calling_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.variant_calling_*_metrics
     type: File[]
-  hs_metrics:
+-   id: hs_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.hs_metrics
     type: File?
-  idxstats:
+-   id: idxstats
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.idxstats.txt
     type: File
-  insert_metrics:
+-   id: insert_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.insert_size_metrics
     type: File
-  insert_plot:
+-   id: insert_plot
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.insert_size_Histogram.pdf
     type: File
-  qual_chart:
+-   id: qual_chart
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.qual_score_dist.pdf
     type: File
-  qual_metrics:
+-   id: qual_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.qual_score_dist.txt
     type: File
-  verifybamid_output:
+-   id: verifybamid_output
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.selfSM
     type: File
-  wgs_metrics:
+-   id: wgs_metrics
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.wgs_metrics
     type: File?
-  xy_ratio:
+-   id: xy_ratio
     outputBinding:
       glob: $(inputs.outdir)/metrics/*.ratio.txt
     type: File
+-   id: execution_report
+    outputBinding:
+      glob: $(inputs.outdir)/pipeline_info/execution_report_*
+    type: File
+-   id: execution_timeline
+    outputBinding:
+      glob: $(inputs.outdir)/pipeline_info/execution_timeline_*
+    type: File
 requirements:
 - class: InlineJavascriptRequirement
-- class: ResourceRequirement
-  coresMin: $(inputs.max_cpus)
-  ramMin: $(parseInt(inputs.max_memory) * 1000)
-- class: InitialWorkDirRequirement
-  listing:
-  - $(inputs.auxiliary_files)
