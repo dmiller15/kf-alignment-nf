@@ -118,11 +118,15 @@ inputs:
 -   id: test_aws
     inputBinding:
       prefix: --test_aws
-    type: boolean? 
+    type: boolean?
 -   id: test_batch
     inputBinding:
       prefix: --test_batch
-    type: boolean? 
+    type: boolean?
+-   id: test_cavatica
+    inputBinding:
+      prefix: --test_cavatica
+    type: boolean?
 -   id: wgs_or_wxs
     inputBinding:
       prefix: --wgs_or_wxs
